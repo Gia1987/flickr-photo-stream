@@ -8,13 +8,8 @@ import styles from './styles';
 const Home = () => {
   const dispatch = useDispatch();
 
-  const photos = useSelector(
-    (
-      {
-        photosReducer
-      }
-    ) => photosReducer?.photos
-  );
+  const photos = useSelector(({ photosReducer }) => photosReducer?.photos);
+
   useEffect(() => {
     dispatch(getPhotosSaga());
   }, []);
