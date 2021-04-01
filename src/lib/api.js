@@ -1,12 +1,11 @@
-
 import axios from 'axios';
 
 export const getPhotos = async () => {
-  const corsAPIHost = 'cors-anywhere.herokuapp.com';
-  const corsAPIUrl = `https://${corsAPIHost}/`;
-  const response = await axios(`${corsAPIUrl}https://api.flickr.com/services/feeds/photos_public.gne?format=json`);
+  const response = await axios(`/photos`);
+  const json = response.data.photos.replace('jsonFlickrFeed(', '').substring(0, response.data.photos.length - 1);
 
-  return response.data;
+  return JSON.parse(json.substring(0, json.length - 1));
+
 };
 
 export default getPhotos;
