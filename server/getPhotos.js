@@ -1,6 +1,9 @@
 const axios = require('axios');
 
 const getPhotos = async (req, res) => {
+  const param = req.query.tags ? req.query.tags : 'cats';
+  const tags = param ? `&tags=${param}` : '';
+  
   const header = {
     method: 'get',
     headers: {
@@ -10,7 +13,7 @@ const getPhotos = async (req, res) => {
     }
   };
   const response = await axios
-    .get('https://api.flickr.com/services/feeds/photos_public.gne?format=json', { headers: header })
+    .get(`https://api.flickr.com/services/feeds/photos_public.gne/?format=json${tags}`, { headers: header })
     .then(photos => {
       // handle success
       return {

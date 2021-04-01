@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { getPhotosSaga } from '../../actions';
-
-import styles from './styles';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -11,46 +9,30 @@ const Home = () => {
   const photos = useSelector(({ photosReducer }) => photosReducer?.photos);
 
   useEffect(() => {
-    dispatch(getPhotosSaga());
+    dispatch(getPhotosSaga({tags:''}));
   }, []);
 
   return (
-    <div style={styles.container}>
-      {false
+    <div className='container'>
+      {photos?.items?.length > 0
         && (
-          <Table
-            striped
-          >
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Username</Table.HeaderCell>
-                <Table.HeaderCell>E-mail</Table.HeaderCell>
-                <Table.HeaderCell>Phone</Table.HeaderCell>
-                <Table.HeaderCell>Website</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {photos.map(({
-                id,
-                name,
-                email,
-                phone,
-                username,
-                website
-              }) => (
-                <Table.Row key={id}>
-                  <Table.Cell>{id}</Table.Cell>
-                  <Table.Cell>{name}</Table.Cell>
-                  <Table.Cell>{username}</Table.Cell>
-                  <Table.Cell>{email}</Table.Cell>
-                  <Table.Cell>{phone}</Table.Cell>
-                  <Table.Cell>{website}</Table.Cell>
-                </Table.Row>))}
-            </Table.Body>
-          </Table>
-        )
+        <>
+         {photos.items.map(({
+          media,
+          title,
+          description
+
+        }, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Card className='item' key={`photo-${i}`}>
+          <img alt={description} className='image' src={`${media.m}`} wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>{title?.length ? title : 'Unknown'}</Card.Header>  
+          </Card.Content>
+        </Card>
+        ))}
+      </>
+      ) 
       }
     </div>
   );

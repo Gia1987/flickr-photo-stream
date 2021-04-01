@@ -8,8 +8,9 @@ export function setPhotos(photos) {
 }
 
 // Sagas
-export function getPhotosSaga() {
+export function getPhotosSaga(tags) {
   return {
-    type: GET_PHOTOS_SAGA
+    type: GET_PHOTOS_SAGA,
+    tags
   };
 }

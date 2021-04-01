@@ -1,5 +1,33 @@
-body,div {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.image {
+    height: 200px;
+    width: 290px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-bottom: 90px;
+}
+
+.ui.card {
+    margin: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+    .container {
+        max-width: fit-content;
+    }
 }
