@@ -1,7 +1,10 @@
+# Flickr-photo-stream
+
 ## Features Out-Of-The-Box
 
--   React-Router 4
--   Semantic Ui
+-   React(Hooks)
+-   HTML CSS (Sass)
+-   React-Router
 -   Redux
 -   Redux Saga
 -   ESlint
@@ -9,10 +12,14 @@
 
 ## Live Demo
 
+[Heroku](https://stormy-reef-34575.herokuapp.com/)
+
 ## Installation
 
 Clone repo and run:
 
 ```
-npm i && npm run start
+- npm i
+- npm run build
+- npm run start
 ```
