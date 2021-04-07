@@ -1,6 +1,8 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable camelcase */
 import React, {useEffect} from 'react';
+import ReactHtmlParser from 'react-html-parser'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { Card } from 'semantic-ui-react';
 import { getPhotosSaga } from '../../actions';
 
 const Home = () => {
@@ -9,32 +11,35 @@ const Home = () => {
   const photos = useSelector(({ photosReducer }) => photosReducer?.photos);
 
   useEffect(() => {
-    dispatch(getPhotosSaga({tags:''}));
+    dispatch(getPhotosSaga({ tags: '' }));
   }, []);
 
   return (
-    <div className='container'>
+    <section className='cards'>
       {photos?.items?.length > 0
         && (
         <>
-         {photos.items.map(({
+        {photos.items.map(({
+          link,
           media,
           title,
-          description
-
+          description,
+          author,
+          author_id,
+          tags
         }, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Card className='item' key={`photo-${i}`}>
-          <img alt={description} className='image' src={`${media.m}`} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header>{title?.length ? title : 'Unknown'}</Card.Header>  
-          </Card.Content>
-        </Card>
+          <div  key={`photo-${i}`} className='card'>
+            <img  alt='' src={`${media.m})`}/>
+            <div className='card-content'>
+              <h2><a href={link} target='blank'>{ title.length > 10 ? `${title.slice(0, 10)}...`: title}</a> by <a href={`https://www.flickr.com/photos/${author_id}/`} target='blank'>{author.replace('nobody@flickr.com ("', '').slice(0, -2)}</a></h2>
+              <p>{ReactHtmlParser(description.replace(/<img[^>]*>/g,"")) }</p>
+              <p>{tags.split(" ").map(tag => `#${tag}`).join(" ")}</p>
+            </div>
+          </div>
         ))}
       </>
-      ) 
-      }
-    </div>
+      )}
+    </section>
   );
 };
 
